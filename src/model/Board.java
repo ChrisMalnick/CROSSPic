@@ -80,12 +80,21 @@ public class Board implements Serializable{
 		this.name = name; 
 		this.size = size; 
 		this.board = new Square[size][size];
+		//initialize the board
+		for(int col=0; col<this.size; col++){
+			for(int row=0; row<this.size; row++){
+				board[col][row] = new Square(); 
+			}
+		}
 	}
 
 	public String getName(){ 
 		return this.name;
 	}
 	
+	public int getSize(){
+		return this.size; 
+	}
 	public boolean isSquareFilled(int col, int row){ 
 		return board[col][row].isFilled(); 
 	}
@@ -95,7 +104,7 @@ public class Board implements Serializable{
 	}
 
 	public void fillSquare(int col, int row){
-		board[col][row].fillSquare(); 
+				board[col][row].fillSquare(); 
 	}
 
 	public void clearBoard(){ 

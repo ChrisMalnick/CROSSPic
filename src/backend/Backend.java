@@ -10,7 +10,7 @@ import model.Board;
 import model.User;
 
 public class Backend {
-	public static final String DIR = "./data"; 
+	public static final String DIR = "data"; 
 	public static final String PUZZLE = ".puzzle"; 
 	public static final String USER = ".user"; 
 	
