@@ -3,72 +3,73 @@ package model;
 import java.awt.Color;
 import java.io.Serializable;
 
-class Square implements Serializable{
-	private static final long serialVersionUID = 1L;
-	private boolean filled;
-	private boolean exed;
-	private Color color; 
-	
-	public Square(){
-		this.filled = false;  //A square is always not filled when it is made
-		this.exed = false; 
-		this.color = Color.WHITE;
-	}
-	
-	//returns true if the square is filled
-	boolean isFilled(){
-		return this.filled;
-	}
-
-	void flipSquare(){
-		this.filled = !this.filled; 
-	}
-
-	void fillSquare(){
-		this.filled = true;
-	}
-	
-	void unfillSquare(){
-		this.filled = false;
-	}
-
-	boolean isExed(){
-		return this.exed; 
-	}
-	
-	void flipExed(){ 
-		this.exed = !this.exed; 
-	}
-	
-	void markExed(){
-		this.exed = true; 
-	}
-	
-	void unmarkExed(){ 
-		this.exed = false; 
-	}
-	
-	void setColor(Color color){
-		this.color = color; 
-	}
-	
-	Color getColor(){
-		return this.color; 
-	}
-	
-	void clearColor(){
-		this.color = Color.WHITE; 
-	}
-	
-	void clearSquare(){
-		this.filled = false; 
-		this.exed = false; 
-		this.color = Color.WHITE; 
-	}
-	
-}
-
 public class Board implements Serializable{
+	
+	private class Square implements Serializable{
+		private static final long serialVersionUID = 1L;
+		private boolean filled;
+		private boolean exed;
+		private Color color; 
+		
+		public Square(){
+			this.filled = false;  //A square is always not filled when it is made
+			this.exed = false; 
+			this.color = Color.WHITE;
+		}
+		
+		//returns true if the square is filled
+		boolean isFilled(){
+			return this.filled;
+		}
+
+		void flipSquare(){
+			this.filled = !this.filled; 
+		}
+
+		void fillSquare(){
+			this.filled = true;
+		}
+		
+		void unfillSquare(){
+			this.filled = false;
+		}
+
+		boolean isExed(){
+			return this.exed; 
+		}
+		
+		void flipExed(){ 
+			this.exed = !this.exed; 
+		}
+		
+		void markExed(){
+			this.exed = true; 
+		}
+		
+		void unmarkExed(){ 
+			this.exed = false; 
+		}
+		
+		void setColor(Color color){
+			this.color = color; 
+		}
+		
+		Color getColor(){
+			return this.color; 
+		}
+		
+		void clearColor(){
+			this.color = Color.WHITE; 
+		}
+		
+		void clearSquare(){
+			this.filled = false; 
+			this.exed = false; 
+			this.color = Color.WHITE; 
+		}
+		
+	}
+	
 	private static final long serialVersionUID = 2L;
 	private String name;
 	private Square[][] board;
@@ -95,22 +96,54 @@ public class Board implements Serializable{
 	public int getSize(){
 		return this.size; 
 	}
+	
 	public boolean isSquareFilled(int col, int row){ 
 		return board[col][row].isFilled(); 
 	}
-
-	public void flipSquare(int col, int row){
+	
+	public boolean isSquareExed(int col, int row){
+		return board[col][row].isExed(); 
+	}
+	
+	public void flipSquareFilled(int col, int row){
 		board[col][row].flipSquare(); 	
 	}
 
-	public void fillSquare(int col, int row){
-				board[col][row].fillSquare(); 
+	public void flipSquareExed(int col, int row){
+		board[col][row].flipExed(); 
 	}
-
+	
+	public void fillSquare(int col, int row){
+		board[col][row].fillSquare(); 
+	}
+	
+	public void unfillSquare(int col, int row){
+		board[col][row].unfillSquare(); 
+	}
+	
+	public void exSquare(int col, int row){
+		board[col][row].markExed(); 
+	}
+	
+	public void unexSquare(int col, int row){
+		board[col][row].unmarkExed(); 
+	}
+	
+	public void setSquareColor(int col, int row, Color color){
+		board[col][row].setColor(color); 
+	}
+	
+	public Color getSquareColor(int col, int row){
+		return board[col][row].getColor(); 
+	}
+	public void clearSquareColor(int col, int row){
+		board[col][row].clearColor(); 
+	}
+	
 	public void clearBoard(){ 
 		for(int y=0; y< size; y++){
 			for(int x=0; x< size; x++){
-				board[y][x].clearSquare(); 
+				board[y][x].clearSquare();
 			}
 		}
 	}

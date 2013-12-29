@@ -1,15 +1,17 @@
 package model;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import backend.Backend;
 
 public class User implements Serializable{
 	private static final long serialVersionUID = 3L;
 	private String userName; 
 	private String userID; 
 	private String userPassword; 
-	
-	private ArrayList<String> puzzles; 
+	private ArrayList<String> puzzleNames; 
 	// figure out how you're going to save the best times and map it to each puzzle
 
 	
@@ -17,6 +19,7 @@ public class User implements Serializable{
 		this.userName = userName;
 		this.userID = userID; 
 		this.userPassword = userPassword; 
+		this.puzzleNames = new ArrayList<String>(); 
 	}
 	
 	public String getUserName(){
@@ -44,20 +47,44 @@ public class User implements Serializable{
 	}
 	
 	public ArrayList<String> getPuzzles(){
-		return this.puzzles; 
+		return this.puzzleNames; 
 	}
 	
-	public void addPuzzle(String puzzleName){
-		this.puzzles.add(puzzleName);
+	public boolean addPuzzle(Board puzzle){
+		this.puzzleNames.add(puzzle.getName());
+		return Backend.savePuzzle(puzzle) && Backend.saveUser(this); 
 	}
 	
 	public void removePuzzle(String puzzleName){
-		this.puzzles.remove(puzzleName); 
+		this.puzzleNames.remove(puzzleName); 
 	}
 	
-	public boolean hasPuzzle(String puzzleName){
-		if(this.puzzles.contains(puzzleName))
+	public Board getPuzzle(String puzzleName){
+		if(this.hasPuzzle(puzzleName))
+			return Backend.loadPuzzle(puzzleName); 
+		else return null; 
+	}
+	
+	public ArrayList<String> addNewPuzzles(){ 
+		File dir = new File(Backend.DIR+File.separator+Backend.PUZZLEDIR); 
+		if(!dir.exists())
+			return null; 
+		
+		ArrayList<String> newPuzzles = new ArrayList<String>(); 
+		for(String file : dir.list()){
+			String filename = file.substring(0, file.length()-7);
+			if(!this.hasPuzzle(filename)){
+				newPuzzles.add(filename); 
+			}
+		}
+		return newPuzzles; 
+	}
+	
+	private boolean hasPuzzle(String puzzleName){
+		if(this.puzzleNames.contains(puzzleName))
 			return true; 
 		return false; 
 	}
+	
+
 }
