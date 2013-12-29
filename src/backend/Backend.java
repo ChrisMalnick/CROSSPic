@@ -101,9 +101,13 @@ public class Backend {
 			return null; 
 		
 		ArrayList<String> users = new ArrayList<String>(); 
-		for(String s: dir.list())
-			users.add(s.substring(0, s.length()-5)); 
-		
+		for(String s: dir.list()){
+			String user = s.substring(0, s.length()-5); 
+			if(Backend.loadUser(user) == null){
+				continue; 
+			}
+			users.add(user); 
+		}
 		return users; 
 	}
 	
@@ -113,9 +117,13 @@ public class Backend {
 			return null; 
 		
 		ArrayList<String> puzzles = new ArrayList<String>(); 
-		for(String s : dir.list())
-			puzzles.add(s.substring(0, s.length()-7)); 
-		
+		for(String s : dir.list()){
+			String puzzle = s.substring(0, s.length()-7); 
+			if(Backend.loadPuzzle(puzzle) == null){
+				continue;
+			}
+			puzzles.add(puzzle); 
+		}
 		return puzzles; 
 	}
 	
