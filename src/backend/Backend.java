@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import model.Board;
 import model.User;
@@ -92,6 +93,30 @@ public class Backend {
 		catch(Exception e){
 			return false; 
 		}
+	}
+	
+	public static ArrayList<String> getUsers(){
+		File dir = new File(Backend.DIR+File.separator+Backend.USERDIR); 
+		if(!dir.exists())
+			return null; 
+		
+		ArrayList<String> users = new ArrayList<String>(); 
+		for(String s: dir.list())
+			users.add(s.substring(0, s.length()-5)); 
+		
+		return users; 
+	}
+	
+	public static ArrayList<String> getPuzzles(){
+		File dir = new File(Backend.DIR+File.separator+Backend.PUZZLEDIR); 
+		if(!dir.exists())
+			return null; 
+		
+		ArrayList<String> puzzles = new ArrayList<String>(); 
+		for(String s : dir.list())
+			puzzles.add(s.substring(0, s.length()-7)); 
+		
+		return puzzles; 
 	}
 	
 	private static  String generatePuzzlePath(String puzzleName){
