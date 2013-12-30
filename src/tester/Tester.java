@@ -2,9 +2,9 @@ package tester;
 
 import java.util.ArrayList;
 
-import backend.Backend;
 import model.Board;
 import model.User;
+import backend.Backend;
 
 public class Tester {
 
@@ -35,5 +35,14 @@ public class Tester {
 		ArrayList<String> newPuzzles = user.addNewPuzzles(); 
 		for(String s : newPuzzles)
 			System.out.println(s); 
+		
+		User user2 = Backend.loadUser("msk154"); 
+		ArrayList<String> u2p = user2.getPuzzles(); 
+		System.out.println("user2name:" + user2.getUserName()); 
+		if(user2.getPuzzle(u2p.get(0)) == null)
+			System.out.println("Failed to load puzzle"); 
+		
+		
+		
 	}
 }
