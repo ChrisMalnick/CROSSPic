@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import backend.Backend;
 
@@ -12,6 +13,7 @@ public class User implements Serializable{
 	private String userID; 
 	private String userPassword; 
 	private ArrayList<String> puzzleNames; 
+	private HashMap<String, Time> bestTimes; 
 	// figure out how you're going to save the best times and map it to each puzzle
 
 	
@@ -20,6 +22,7 @@ public class User implements Serializable{
 		this.userID = userID; 
 		this.userPassword = userPassword; 
 		this.puzzleNames = new ArrayList<String>(); 
+		this.bestTimes = new HashMap<String, Time>(); 
 	}
 	
 	public String getUserName(){
@@ -86,5 +89,16 @@ public class User implements Serializable{
 		return false; 
 	}
 	
+	public HashMap<String, Time> getBestTimes(){
+		return this.bestTimes; 
+	}
+	
+	public Time getBestTimeFor(String puzzle){ 
+		return this.bestTimes.get(puzzle); 
+	}
+	
+	public void addTime(String puzzle, Time time){
+		this.bestTimes.put(puzzle, time); 
+	}
 
 }

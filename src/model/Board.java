@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.Timer;
 
 public class Board implements Serializable{
 	
@@ -76,6 +77,7 @@ public class Board implements Serializable{
 	private int size;
 	private int[][] rightGuide;  
 	private int[][] bottomGuide;
+	private Time time; 
 
 	public Board(String name, int size){ 
 		this.name = name; 
@@ -164,6 +166,25 @@ public class Board implements Serializable{
 		return this.bottomGuide;
 	}
 
+	public Time getTime(){ 
+		return this.time; 
+	}
+	
+	/**
+	 * Time should be formated as such MM:SS
+	 * where M is the minutes 
+	 * and S is the seconds
+	 * 
+	 * @param time
+	 */
+	public void setTime(String time){
+		int colon = time.indexOf(':'); 
+		colon++; 
+		int minutes = Integer.getInteger(time.substring(0, colon)); 
+		int seconds = Integer.getInteger(time.substring(colon)); 
+		this.time.setMinutes(minutes); 
+		this.time.setSeconds(seconds); 
+	}
 	@Override
 	public String toString(){
 		return this.name; 
